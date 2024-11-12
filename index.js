@@ -24,15 +24,15 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(cors(
+// app.use(cors(
 
-    {
-        origin: ["https://mern-anime-tracker-front.vercel.app/"],
-        methods: ["POST", "GET"],
-        credentials: true
+//     {
+//         origin: ["https://mern-anime-tracker-front.vercel.app/"],
+//         methods: ["POST", "GET"],
+//         credentials: true
 
-    }
-));
+//     }
+// ));
 app.use(express.json());
 //haha
 // Routes
