@@ -270,7 +270,7 @@ const forgetpassword = async (req, res) => {
             from: process.env.EMAIL,
             to: user.email,
             subject: 'Password Reset',
-            text: `Please click on the following link, or paste it into your browser to reset your password: http://localhost:3000/reset-password\/${token}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n`
+            text: `Please click on the following link, or paste it into your browser to reset your password: http://mern-anime-tracker-back.vercel.app/reset-password\/${token}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n`
         };
 
         transporter.sendMail(mailOptions, (err) => {
