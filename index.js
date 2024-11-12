@@ -11,9 +11,9 @@ const app = express();
 connectDB();
 
 // Middleware
-// app.get("/", (req, res) => {
-//     res.json("Hello")
-// })
+app.get("/", (req, res) => {
+    res.json("Hello")
+})
 app.use(cors(
 
     {
