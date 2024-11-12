@@ -12,7 +12,7 @@ connectDB();
 app.use((req, res, next) => {
     res.setHeader(
         "Access-Control-Allow-Origin",
-        "https://your-frontend.com"
+        "https://mern-anime-tracker-front.vercel.app"
     );
     res.setHeader(
         "Access-Control-Allow-Methods",
