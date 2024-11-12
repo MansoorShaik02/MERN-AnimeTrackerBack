@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 app.use(cors(
 
     {
-        origin: "https://mern-anime-tracker-front.vercel.app",
+        origin: ["https://mern-anime-tracker-front.vercel.app"],
         methods: ["POST", "GET"],
         credentials: true
 
