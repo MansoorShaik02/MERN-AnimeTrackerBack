@@ -324,8 +324,8 @@ const forgetpassword = async (req, res) => {
         user.resetPasswordToken = token;
         user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
         await user.save();
-        // console.log('Email:', process.env.EMAIL);
-        // console.log('Email Password:', process.env.EMAIL_PASSWORD);
+        console.log('Email:', process.env.EMAIL);
+        console.log('Email Password:', process.env.EMAIL_PASSWORD);
         const transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
