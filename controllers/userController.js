@@ -82,7 +82,7 @@ const getComments = async (req, res) => {
 
 const registerUser = async (req, res) => {
     const { username, email, password } = req.body;
-    console.log('Request Body:', req.body);
+    // console.log('Request Body:', req.body);
 
     if (!email) {
         return res.status(400).json({ msg: 'Please enter email fields' });
@@ -169,7 +169,7 @@ const verifyEmail = async (req, res) => {
 
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
 
     try {
         let user = await User.findOne({ email });
@@ -324,8 +324,8 @@ const forgetpassword = async (req, res) => {
         user.resetPasswordToken = token;
         user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
         await user.save();
-        console.log('Email:', process.env.EMAIL);
-        console.log('Email Password:', process.env.EMAIL_PASSWORD);
+        // console.log('Email:', process.env.EMAIL);
+        // console.log('Email Password:', process.env.EMAIL_PASSWORD);
         const transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
