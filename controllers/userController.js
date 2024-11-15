@@ -82,7 +82,7 @@ const getComments = async (req, res) => {
 
 const registerUser = async (req, res) => {
     const { username, email, password } = req.body;
-    // console.log('Request Body:', req.body);
+    console.log('Request Body:', req.body);
 
     if (!email) {
         return res.status(400).json({ msg: 'Please enter email fields' });
@@ -169,7 +169,7 @@ const verifyEmail = async (req, res) => {
 
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
-    // console.log(req.body);
+    console.log(req.body);
 
     try {
         let user = await User.findOne({ email });
