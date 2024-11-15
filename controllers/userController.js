@@ -34,6 +34,52 @@ const getComments = async (req, res) => {
 };
 
 // Register a new user
+// const registerUser = async (req, res) => {
+//     const { username, email, password } = req.body;
+//     console.log('Request Body:', req.body);
+
+//     if (!email) {
+//         return res.status(400).json({ msg: 'Please enter email fields' });
+//     }
+//     if (!username) {
+//         return res.status(400).json({ msg: 'Please enter username field' });
+//     }
+
+//     if (!password) {
+//         return res.status(400).json({ msg: 'Please enter password fields' });
+//     }
+
+//     try {
+//         let user = await User.findOne({ email });
+//         if (user) {
+//             if (!user.isVerified) {
+//                 sendVerificationEmail(user, req, res);
+//                 return res.status(200).json({ msg: 'Email already registered but not verified. Verification email resent.' });
+//             }
+//             return res.status(400).json({ msg: 'User already exists' });
+//         }
+
+//         user = new User({ username, email, password });
+
+//         const salt = await bcrypt.genSalt(10);
+//         user.password = await bcrypt.hash(password, salt);
+
+//         await user.save();
+//         sendVerificationEmail(user, req, res);
+
+//         const payload = { user: { id: user.id } };
+
+//         jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+//             if (err) throw err;
+//             res.json({ token });
+//         });
+//     } catch (err) {
+//         console.error(err.message);
+//         res.status(500).send('Server error');
+//     }
+// };
+
+
 const registerUser = async (req, res) => {
     const { username, email, password } = req.body;
     console.log('Request Body:', req.body);
@@ -44,7 +90,6 @@ const registerUser = async (req, res) => {
     if (!username) {
         return res.status(400).json({ msg: 'Please enter username field' });
     }
-
     if (!password) {
         return res.status(400).json({ msg: 'Please enter password fields' });
     }
@@ -52,10 +97,6 @@ const registerUser = async (req, res) => {
     try {
         let user = await User.findOne({ email });
         if (user) {
-            if (!user.isVerified) {
-                sendVerificationEmail(user, req, res);
-                return res.status(200).json({ msg: 'Email already registered but not verified. Verification email resent.' });
-            }
             return res.status(400).json({ msg: 'User already exists' });
         }
 
@@ -65,7 +106,6 @@ const registerUser = async (req, res) => {
         user.password = await bcrypt.hash(password, salt);
 
         await user.save();
-        sendVerificationEmail(user, req, res);
 
         const payload = { user: { id: user.id } };
 
@@ -78,6 +118,10 @@ const registerUser = async (req, res) => {
         res.status(500).send('Server error');
     }
 };
+
+
+
+
 
 const verifyEmail = async (req, res) => {
     try {
@@ -96,18 +140,41 @@ const verifyEmail = async (req, res) => {
 };
 
 // Login user
+// const loginUser = async (req, res) => {
+//     const { email, password } = req.body;
+//     console.log(req.body)
+
+//     try {
+//         let user = await User.findOne({ email });
+//         if (!user) return res.status(400).json({ msg: 'Invalid credentials no user' });
+
+//         if (!user.isVerified) return res.status(400).json({ msg: 'Your email is not verified. Please check your email to verify your account.' });
+
+//         const isMatch = await bcrypt.compare(password, user.password);
+//         if (!isMatch) return res.status(400).json({ msg: 'Invalid credentials no match' });
+
+//         const payload = { user: { id: user.id } };
+
+//         jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+//             if (err) throw err;
+//             res.json({ token });
+//         });
+//     } catch (err) {
+//         console.error(err.message);
+//         res.status(500).send('Server error');
+//     }
+// };
+
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
-    console.log(req.body)
+    console.log(req.body);
 
     try {
         let user = await User.findOne({ email });
-        if (!user) return res.status(400).json({ msg: 'Invalid credentials no user' });
-
-        if (!user.isVerified) return res.status(400).json({ msg: 'Your email is not verified. Please check your email to verify your account.' });
+        if (!user) return res.status(400).json({ msg: 'Invalid credentials' });
 
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(400).json({ msg: 'Invalid credentials no match' });
+        if (!isMatch) return res.status(400).json({ msg: 'Invalid credentials' });
 
         const payload = { user: { id: user.id } };
 
